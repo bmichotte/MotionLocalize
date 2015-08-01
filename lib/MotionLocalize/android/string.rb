@@ -3,8 +3,13 @@ class String
   def translate(opts={})
     context = MotionLocalize.context
     raise ArgumentError.new 'MotionLocalize on android require that you init MotionLocalize.context' unless context
-    str = context.getString(self)
+
+    package_name = context.getPackageName
+    resource_id = context.getResources.getIdentifier(self, 'string', package_name)
+
+    str = context.getString(resource_id)
     unless str
+      mp missing_translation: self, force_color: :red
       return self
     end
 

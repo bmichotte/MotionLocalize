@@ -16,8 +16,13 @@ task :localize do
       FileUtils.mkdir_p("resources/#{locale}.lproj")
       filename = "resources/#{locale}.lproj/Localizable.strings"
     elsif android
-      FileUtils.mkdir_p("resources/values-#{locale}")
-      filename = "resources/values-#{locale}/strings.xml"
+      if locale == 'en'
+        dir = "values"
+      else
+        dir = "values-#{locale}"
+      end
+      FileUtils.mkdir_p("resources/#{dir}")
+      filename = "resources/#{dir}/strings.xml"
     end
 
     App.info "Writing", filename
@@ -46,7 +51,11 @@ task :localize do
   end
 end
 
+# ios
 namespace :build do
   task :simulator => :localize
   task :device => :localize
 end
+
+# android
+task :build => :localize
