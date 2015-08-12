@@ -2,10 +2,8 @@ desc "Convert translations to iOS or Android format"
 task :localize do
   cocoa = App.template.to_s =~ /\bios|osx\b/
   android = App.template.to_s =~ /\bandroid\b/
-  if android
-    require File.dirname(__FILE__) + '/../MotionLocalize/android/yaml'
-  end
 
+  require 'yaml'
   files = Dir.glob("config/locales/*.yml")
 
   files.each do |file|

@@ -1,0 +1,2 @@
+hello: Hello
+show_my_age: I'm %{age} years old
