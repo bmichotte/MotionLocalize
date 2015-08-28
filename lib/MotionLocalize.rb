@@ -10,7 +10,7 @@ Motion::Project::App.setup do |app|
   app.files << File.join(lib_dir_path, "MotionLocalize/symbol.rb")
   if App.template.to_s =~ /\bios|osx\b/
     # remove localization from sugarcube
-    app.files.reject! {|file| /sugarcube-localized/ =~ file }
+    app.files.flatten.reject! {|file| /sugarcube-localized/ =~ file }
     app.files << File.join(lib_dir_path, "MotionLocalize/cocoa/ns_string.rb")
   elsif App.template.to_s =~ /\bandroid\b/
     app.files << File.join(lib_dir_path, "MotionLocalize/android/string.rb")
